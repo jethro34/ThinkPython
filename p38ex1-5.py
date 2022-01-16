@@ -28,8 +28,8 @@ print(bob)
 
 # square(bob, 50)
 # polygon(bob, 5, 50)
-circle(bob, 10)
-arc(bob, 12, 360)
+# circle(bob, 10)
+arc(bob, 12, 90)
 
 
 turtle.mainloop()
