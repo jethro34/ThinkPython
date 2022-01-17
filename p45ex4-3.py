@@ -1,23 +1,30 @@
+# draws a wheel graph given the number of sides and radius
+
 import turtle
 import math
 
-def triangler(t, n, in_lngth):
-    t.fd(in_lngth)
-    t.lt(180 - 360 / (2 * n))
-    t.fd(2 * in_lngth * math.sin(90 - 180 / n))
-    t.lt(180 - 360 / (2 * n))
-    t.fd(in_lngth)
+def triangler(t, sides, radius):
+    """Draws an internal triangle in the wheel"""
+    side_angle = (sides - 2) * 90 / sides
+    side_length = 2 * radius * math.sin(math.radians(180 / sides))
 
-def full_polygon(t, n, side_length):
-    for i in range(n):
-        t.fd(side_length)
-        t.lt(360 / n)
+    t.fd(radius)
+    t.lt(180 - side_angle)
+    t.fd(side_length)
+    t.lt(180 - side_angle)
+    t.fd(radius)
+    t.lt(180)
+
+def wheeler(t, sides, radius):
+    """Draws the wheel"""
+    for i in range(sides):
+        triangler(t, sides, radius)
 
 
 bob = turtle.Turtle()
 print(bob)
 
-triangler(bob, 4, 100)
+wheeler(bob, 3, 100)
 
-#bob.hideturtle()
+bob.hideturtle()
 turtle.mainloop()
