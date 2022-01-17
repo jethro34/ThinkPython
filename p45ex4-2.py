@@ -8,24 +8,25 @@ def arc(t, radius, angle):
         t.fd(radius * math.pi / 180)
         t.lt(1)
 
-def draw_petal(radius, angle):
+def petal(radius, angle):
     arc(bob, radius, angle)
     bob.lt(180 - angle)
     arc(bob, radius, angle)
     bob.lt(180)
 
-def draw_flower(radius, angle, overlap=False):
+def flower(radius, angle, overlap=False):
     """Draws a flower with optional overlapped petals"""
     for i in range(360 // angle):
-        draw_petal(radius, angle)
+        petal(radius, angle)
     if overlap:
         bob.lt(angle // 2)
-        draw_flower(radius, angle)
+        flower(radius, angle)
 
     
 bob = turtle.Turtle()
 print(bob)
 
-draw_flower(50, 120, True)
+flower(30, 90, True)
 
+bob.hideturtle()
 turtle.mainloop()
