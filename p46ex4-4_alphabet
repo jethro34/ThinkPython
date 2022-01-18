@@ -1,0 +1,9 @@
+def print_letter(string_code):
+    for ch in string_code:
+        if ch != 
+            pointer.goto(coordinates(ch))         # setting pen's initial location
+            #pen_down 
+            #rotate(coordinates(ch), coordingates(string_code.[ch+1]))
+            #draw_line(coordinates(ch), coordingates(string_code.[ch+1]))
+        
+        
