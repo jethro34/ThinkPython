@@ -1,31 +1,41 @@
-# draws alphabet letters
+# draws phrases
 
 import turtle
-import math
 
-coord_key = {'1': (-10, -20), '2': (0, -20), '3': (10, -20), '4': (-10, 0),
-             '5': (0, 0), '6': (10, 0), '7': (-10, 20), '8': (0, 20), '9': (10, 20)}
+coord_key = {'7': (-20, 40),  '8': (0, 40),  '9': (20, 40),
+             '4': (-20, 0),   '5': (0, 0),   '6': (20, 0),
+             '1': (-20, -40), '2': (0, -40), '3': (20, -40)}
 
-def rotate_n_draw(t, orig_coord, dest_coord):
-    to_angle = t.towards(dest_coord)
-    t.setheading(to_angle)
-    distance = math.sqrt((dest_coord[1] - orig_coord[1]) ** 2 + (dest_coord[0] - orig_coord[0]) ** 2)
-    t.forward(distance)
+alphabet = {'a': '1834', 'b': '76431', 'c': '943', 'd': '7614', 'e': '943045', 'g': '9435', 'i': '852', 'l': '7413', 'n': '17863','o': '4862', 's': '8462', 't': '7890852', 'u': '729', 'v': '729', 'y': '759052', 'z': '7913', ' ': '10'}
 
 
-def print_letter(t, string_code):
-    pointer.goto(coord_key[string_code[0]])         # setting pen's initial location
-    count = 0 
-    for ch in string_code[:-1]:
-        count += 1
-        if ch == '0' or string_code[count] == '0':
+def print_character(t, code, adjust, margin):
+    t.penup()
+    t.goto(margin + coord_key[code[0]][0] + adjust, coord_key[code[0]][1])  # setting initial position
+    for ch in range(len(code[:-1])):
+        if code[ch+1] == '0':
             continue
-        t.pendown()
-        rotate_n_draw(t, coord_key[ch], coord_key[string_code[count]])
+        elif code[ch] == '0':
+            t.penup()
+            t.goto(margin + coord_key[code[ch+1]][0] + adjust, coord_key[code[ch+1]][1])
+        else:
+            t.pendown()
+            t.goto(margin + coord_key[code[ch+1]][0] + adjust, coord_key[code[ch+1]][1])
     t.penup()
 
 
-pointer = turtle.Turtle()
-#print(pointer)
-print_letter(pointer, "1834")
-pointer.hideturtle()
+def print_phrase(t, phrase, separation, margin):
+    count = 0
+    for ch in phrase:
+        print_character(t, alphabet[ch], separation * count, margin)
+        count += 1
+
+
+pen = turtle.Turtle()
+print(pen)
+
+print_phrase(pen, "diaz canel singao", 60, -500)
+
+pen.hideturtle()
+turtle.mainloop()
+             
