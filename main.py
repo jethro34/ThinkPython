@@ -1,16 +1,19 @@
-# This is a sample Python script.
+# recursion example
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def iterative_factorial(number):
+    temporal = 1
+    for i in range(1, number + 1):
+        temporal = temporal * i
+    return temporal
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def recursive_factorial(number):
+    if number == 1:
+        return 1
+    return number * recursive_factorial(number - 1)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+print(iterative_factorial(3))
+print(recursive_factorial(3))
+
