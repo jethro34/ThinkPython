@@ -1,4 +1,5 @@
 fin = open("/Users/hejtor/OneDrive/CS/ThinkPython stuff/words.txt")
+
 for line in fin:
-    word = line.strip()
-    print(word)
+    if len(line.strip()) > 20:
+        print(line.strip())
