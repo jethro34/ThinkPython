@@ -1,6 +1,6 @@
-def avoids(string, forbidden):
-    for c in forbidden:
-        if c in string:
+def avoids(wort, verboten):
+    for c in verboten:
+        if c in wort:
             return False
     return True
 

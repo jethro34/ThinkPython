@@ -1,4 +1,5 @@
 def uses_only(wort, req_letts):
+    """Returns True if word contains only the letters in the list."""
     for c in wort:
         if c not in req_letts:
             return False
