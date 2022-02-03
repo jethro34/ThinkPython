@@ -12,7 +12,7 @@ def in_bisect(l, target):
     mini = 0
     maxi = len(l) - 1
     if l[mini] <= target <= l[maxi]:
-        while True:
+        while mini <= maxi:
             index = mini + (maxi - mini) // 2
             if l[index] == target:
                 return index
@@ -30,11 +30,12 @@ def is_reverse(l):
 
     for i in range(len(l)):
         if in_bisect(l, l[i][::-1]) != 'not in range':
-            rev_list.append(l[i], l[::-1])
+            rev_list.append((l[i], l[i][::-1]))
     return rev_list
 
 
 t = ['baa', 'cab', 'cut', 'deaf', 'eez', 'tuc', 'zee']
 print(t)
-print('the reverse pairs in list t are:')
-print(is_reverse(t))
+#print('the reverse pairs in list t are:')
+#print(i for i in is_reverse(t))
+print(in_bisect(t, t[6][::-1]))
