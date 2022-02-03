@@ -25,17 +25,16 @@ def in_bisect(l, target):
 
 def is_reverse(l):
     """Looks for reverse pairs in a given list and returns them in a list."""
-
     rev_list = []
-
     for i in range(len(l)):
-        if in_bisect(l, l[i][::-1]) != 'not in range':
+        index = in_bisect(l, l[i][::-1])
+        if index != 'not in range' and index != i:
             rev_list.append((l[i], l[i][::-1]))
     return rev_list
 
 
-t = ['baa', 'cab', 'cut', 'deaf', 'eez', 'tuc', 'zee']
-print(t)
-#print('the reverse pairs in list t are:')
-#print(i for i in is_reverse(t))
-print(in_bisect(t, t[6][::-1]))
+t = created_list()
+print('the reverse pairs in list t are:')
+reverse_pairs = is_reverse(t)
+for pair in reverse_pairs:
+    print(pair)
