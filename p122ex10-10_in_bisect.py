@@ -1,4 +1,4 @@
-def created_list():
+def create_list():
     """Creates a list by reading from a file."""
     w_list = []
     fin = open("/Users/hejtor/OneDrive/CS/ThinkPython stuff/words.txt")
@@ -11,16 +11,15 @@ def in_bisect(l, target):
     """Returns the index of target in a given list l, using bi-section."""
     mini = 0
     maxi = len(l) - 1
-    if l[mini] <= target <= l[maxi]:
-        while True:
-            index = mini + (maxi - mini) // 2
-            if l[index] == target:
-                return index
-            elif l[index] > target:
-                maxi = index - 1
-            else:
-                mini = index + 1
+    while l[mini] <= target <= l[maxi]:
+        index = mini + (maxi - mini) // 2
+        if l[index] == target:
+            return index
+        elif l[index] > target:
+            maxi = index - 1
+        else:
+            mini = index + 1
     return 'not in range'
 
 
-print(in_bisect(created_list(), 'aha'))
+print(in_bisect(create_list(), 'xis'))
