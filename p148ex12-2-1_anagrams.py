@@ -32,8 +32,8 @@ def anagram_dict(dikt):
 
 
 def sort_freq(dikt):
-    """ Takes in a forming-letter-to-word dictionary and turns out a frequency-organized list.
-    Output: list of tuples """
+    """ Takes in a forming-letters-to-word dictionary and turns out a frequency-organized list.
+        Output: list of tuples """
 
     l1 = []
     for item in dikt:
@@ -41,8 +41,28 @@ def sort_freq(dikt):
     return sorted(l1, key=len, reverse=True)
 
 
-# for item in anagram_dict(dict_from_file()):
-#     print(anagram_dict(dict_from_file())[item])
+def letter_set(dikt):
+    """ Takes in a forming-letters to anagrams dictionary and creates another with 8-letter sets to number of anagrams.
+        Output: dictionary of the type (tuple) : integer """
 
-for item in sort_freq(anagram_dict(dict_from_file())):
-    print(item)
+    dikt3 = {}
+    for tupel in dikt:
+        if len(set(tupel)) == 8:
+            dikt3[tuple(sorted(set(tupel)))] = dikt3.setdefault(tuple(sorted(set(tupel))), 0) + 1
+    return dikt3
+
+
+anagrams = anagram_dict(dict_from_file())
+
+# 12-2-1 anagrams
+#for item in anagrams:
+#   print(item, anagrams[item])
+
+# 12-2-2 frequency
+#for item in sort_freq(anagram_dict(dict_from_file())):
+#    print(item)
+
+# 12-2.3 bingo
+#for item in letter_set(anagrams):
+#    if letter_set(anagrams)[item] > 7:
+#        print(item, letter_set(anagrams)[item])
