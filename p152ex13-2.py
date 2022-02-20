@@ -5,26 +5,29 @@
 
 import string
 
-words = {}
+
+matrix = {'Whitman':  {"Leaves of Grass":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt",
+                                            "*** START OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***",
+                                            "*** END OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***")}}
 
 
 def clean_n_store(word):
     pre_word = word.strip(string.punctuation).lower()
     if pre_word != "":
         if "--" not in pre_word:
-            words[pre_word] = words.get(pre_word, 0) + 1
+            vocabulary[pre_word] = vocabulary.get(pre_word, 0) + 1
         else:
             clean_n_store(pre_word[:pre_word.index("--")])
             clean_n_store(pre_word[pre_word.index("--") + 2:])
 
 
-def read_n_strip(file):
+def read_n_strip(file, beg, end):
     read = False
     fin = open(file)
     for line in fin:
-        if line.strip() == '*** END OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***':
+        if line.strip() == end:
             return
-        if line.strip() == '*** START OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***':
+        if line.strip() == beg:
             read = True
             continue
         if read:
@@ -37,9 +40,24 @@ def take_second(tupel):
     return tupel[1]     # sort by second item
 
 
-read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt")
+class Author:
+    """ Creates an Author object with data members last_name, file_path, beg_line, end_line, vocab, and freq_list. """
 
-print(len(words), "total words:")
+    def __init__(self, last_name, book_title, file_path, beg_line, end_line):
+        self.last_name = last_name
+        self.book_title = book_title
+        self.file_path = file_path                  # physical location of the book
+        self.beg_line = beg_line                    # line before actual book content begins
+        self.end_line = end_line                    # line book content ends
+        self.vocab = {}
+        self.freq_list = []
 
-test = sorted(sorted([(word, words[word]) for word in words]), key=take_second, reverse=True)
+
+vocabulary = {}
+
+# read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt")
+
+print(len(vocabulary), "total words:")
+
+test = sorted(sorted([(word, vocabulary[word]) for word in vocabulary]), key=take_second, reverse=True)
 print(test)
