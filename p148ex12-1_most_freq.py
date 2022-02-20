@@ -12,7 +12,7 @@ def most_freq(stx):
     for char in stx:
         if not char.isalpha():
             continue
-        dikt[char] = dikt.setdefault(char, 0) + 1                           # creating dict entry by letter
+        dikt[char] = dikt.get(char, 0) + 1                           # creating dict entry by letter
 
     tup_list = list(dikt.items())                                           # creating a list of tuples from dict
     tup_list_alpha = sorted(tup_list)                                       # sorting in alphabetical order
