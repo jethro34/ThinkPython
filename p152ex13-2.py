@@ -1,6 +1,6 @@
 """ Reads text of a book from a file, skipping over the header and trailing information at the beginning and end,
-    storing words in a dictionary. Counts and prints the total words and their frequencies. Processes
-    Author objects with location of the book, vocabulary, total different words, and their frequency. """
+    storing words in a dictionary. Counts and prints the total words and their frequencies. Processes Author objects
+    with location of the book, vocabulary, total different words, their frequency, and the 20 most-used. """
 
 import string
 
@@ -59,10 +59,12 @@ class Author:
         self.vocab = {}
         self.vocab_length = 0
         self.freq_list = []
+        self.twenty_most = []
 
         read_n_strip(self.file_path, self.beg_line, self.end_line, self.vocab)
         self.vocab_length = len(self.vocab)
         self.freq_list = sorted(sorted([(word, self.vocab[word]) for word in self.vocab]), key=take_sec, reverse=True)
+        self.twenty_most = [tupel[0] for tupel in self.freq_list[:20]]
 
 
 shak = Author("Shakespeare", "Sonnets", mtrx["shak"]["sonn"][0], mtrx["shak"]["sonn"][1], mtrx["shak"]["sonn"][2])
@@ -70,10 +72,13 @@ whit = Author("Whitman", "Leaves", mtrx["whit"]["leav"][0], mtrx["whit"]["leav"]
 gibr = Author("Gibran", "Prophet", mtrx["gibr"]["proph"][0], mtrx["gibr"]["proph"][1], mtrx["gibr"]["proph"][2])
 
 print(shak.last_name, "used in", shak.book_title, shak.vocab_length, "total different words.")
-print(shak.freq_list)
+# print(shak.freq_list)
+print(shak.twenty_most)
 
 print(whit.last_name, "used in", whit.book_title, whit.vocab_length, "total different words.")
-print(whit.freq_list)
+# print(whit.freq_list)
+print(whit.twenty_most)
 
 print(gibr.last_name, "used in", gibr.book_title, gibr.vocab_length, "total different words.")
-print(gibr.freq_list)
+# print(gibr.freq_list)
+print(gibr.twenty_most)
