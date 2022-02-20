@@ -1,27 +1,34 @@
 """ Reads text of a book from a file, skipping over the header and trailing information at the beginning and end,
-    storing words in a dictionary. Counts and prints the total words and their frequencies.
-    Compares different books by different authors, written in different eras.
-    Which author uses the most extensive vocabulary? """
+    storing words in a dictionary. Counts and prints the total words and their frequencies. Processes
+    Author objects with location of the book, vocabulary, total different words, and their frequency. """
 
 import string
 
 
-matrix = {'Whitman':  {"Leaves of Grass":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt",
-                                            "*** START OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***",
-                                            "*** END OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***")}}
+mtrx = {"whit": {"leav":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt",
+                           "*** START OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***",
+                           "*** END OF THE PROJECT GUTENBERG EBOOK LEAVES OF GRASS ***")},
+        "gibr": {"proph": ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/gibran_prophet.txt",
+                           "*** START OF THE PROJECT GUTENBERG EBOOK THE PROPHET ***",
+                           "*** END OF THE PROJECT GUTENBERG EBOOK THE PROPHET ***")},
+        "shak": {"sonn":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/shakesp_sonnets.txt",
+                           "*** START OF THE PROJECT GUTENBERG EBOOK THE SONNETS ***",
+                           "*** END OF THE PROJECT GUTENBERG EBOOK THE SONNETS ***")}
+        }
 
 
-def clean_n_store(word):
+def clean_n_store(word, temp_vocab):
+
     pre_word = word.strip(string.punctuation).lower()
     if pre_word != "":
         if "--" not in pre_word:
-            vocabulary[pre_word] = vocabulary.get(pre_word, 0) + 1
+            temp_vocab[pre_word] = temp_vocab.get(pre_word, 0) + 1
         else:
-            clean_n_store(pre_word[:pre_word.index("--")])
-            clean_n_store(pre_word[pre_word.index("--") + 2:])
+            clean_n_store(pre_word[:pre_word.index("--")], temp_vocab)
+            clean_n_store(pre_word[pre_word.index("--") + 2:], temp_vocab)
 
 
-def read_n_strip(file, beg, end):
+def read_n_strip(file, beg, end, vocab):
     read = False
     fin = open(file)
     for line in fin:
@@ -32,10 +39,10 @@ def read_n_strip(file, beg, end):
             continue
         if read:
             for word in line.split():
-                clean_n_store(word)
+                clean_n_store(word, vocab)
 
 
-def take_second(tupel):
+def take_sec(tupel):
     """ Provides key to sorted function. """
     return tupel[1]     # sort by second item
 
@@ -50,14 +57,23 @@ class Author:
         self.beg_line = beg_line                    # line before actual book content begins
         self.end_line = end_line                    # line book content ends
         self.vocab = {}
+        self.vocab_length = 0
         self.freq_list = []
 
+        read_n_strip(self.file_path, self.beg_line, self.end_line, self.vocab)
+        self.vocab_length = len(self.vocab)
+        self.freq_list = sorted(sorted([(word, self.vocab[word]) for word in self.vocab]), key=take_sec, reverse=True)
 
-vocabulary = {}
 
-# read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_leaves.txt")
+shak = Author("Shakespeare", "Sonnets", mtrx["shak"]["sonn"][0], mtrx["shak"]["sonn"][1], mtrx["shak"]["sonn"][2])
+whit = Author("Whitman", "Leaves", mtrx["whit"]["leav"][0], mtrx["whit"]["leav"][1], mtrx["whit"]["leav"][2])
+gibr = Author("Gibran", "Prophet", mtrx["gibr"]["proph"][0], mtrx["gibr"]["proph"][1], mtrx["gibr"]["proph"][2])
 
-print(len(vocabulary), "total words:")
+print(shak.last_name, "used in", shak.book_title, shak.vocab_length, "total different words.")
+print(shak.freq_list)
 
-test = sorted(sorted([(word, vocabulary[word]) for word in vocabulary]), key=take_second, reverse=True)
-print(test)
+print(whit.last_name, "used in", whit.book_title, whit.vocab_length, "total different words.")
+print(whit.freq_list)
+
+print(gibr.last_name, "used in", gibr.book_title, gibr.vocab_length, "total different words.")
+print(gibr.freq_list)
