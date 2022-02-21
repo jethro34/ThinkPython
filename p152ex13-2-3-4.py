@@ -22,7 +22,7 @@ mtrx = {"whit": {"leav":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_
 
 
 def clean_n_store(dirty_word, temp_vocab):
-    """ Removes punctuation and whitespace from a given string and stores it in a given list. """
+    """ Removes punctuation and whitespace from a given string and stores it in a given dictionary. """
 
     pre_word = dirty_word.replace('“', '').replace('”', '').strip(string.punctuation).lower()
     if pre_word != "":
