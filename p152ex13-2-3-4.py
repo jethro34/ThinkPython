@@ -24,7 +24,7 @@ mtrx = {"whit": {"leav":  ("/Users/hejtor/OneDrive/CS/ThinkPython stuff/whitman_
 def clean_n_store(dirty_word, temp_vocab):
     """ Removes punctuation and whitespace from a given string and stores it in a given dictionary. """
 
-    pre_word = dirty_word.replace('“', '').replace('”', '').strip(string.punctuation).lower()
+    pre_word = dirty_word.replace('“', '').replace('”', '').strip(string.punctuation + string.whitespace).lower()
     if pre_word != "":
         if "--" not in pre_word:
             temp_vocab[pre_word] = temp_vocab.get(pre_word, 0) + 1
