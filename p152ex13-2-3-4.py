@@ -26,11 +26,7 @@ def clean_n_store(dirty_word, temp_vocab):
 
     pre_word = dirty_word.replace('“', '').replace('”', '').strip(string.punctuation + string.whitespace).lower()
     if pre_word != "":
-        if "--" not in pre_word:
-            temp_vocab[pre_word] = temp_vocab.get(pre_word, 0) + 1
-        else:
-            clean_n_store(pre_word[:pre_word.index("--")], temp_vocab)
-            clean_n_store(pre_word[pre_word.index("--") + 2:], temp_vocab)
+        temp_vocab[pre_word] = temp_vocab.get(pre_word, 0) + 1
 
 
 def read_n_strip(file, beg, end, vocab):
@@ -46,7 +42,7 @@ def read_n_strip(file, beg, end, vocab):
             read = True
             continue
         if read:
-            for word_to_be in line.split():
+            for word_to_be in line.replace('--', ' ').split():
                 clean_n_store(word_to_be, vocab)
 
 
@@ -94,8 +90,8 @@ class Author:
 
 # shak = Author("Shakespeare", "Sonnets", mtrx["shak"]["sonn"][0], mtrx["shak"]["sonn"][1], mtrx["shak"]["sonn"][2])
 # whit = Author("Whitman", "Leaves", mtrx["whit"]["leav"][0], mtrx["whit"]["leav"][1], mtrx["whit"]["leav"][2])
-gibr = Author("Gibran", "Prophet", mtrx["gibr"]["proph"][0], mtrx["gibr"]["proph"][1], mtrx["gibr"]["proph"][2])
-# tria = Author("Justi", "Bitch", mtrx["tria"]["bitch"][0], mtrx["tria"]["bitch"][1], mtrx["tria"]["bitch"][2])
+# gibr = Author("Gibran", "Prophet", mtrx["gibr"]["proph"][0], mtrx["gibr"]["proph"][1], mtrx["gibr"]["proph"][2])
+tria = Author("Justi", "Bitch", mtrx["tria"]["bitch"][0], mtrx["tria"]["bitch"][1], mtrx["tria"]["bitch"][2])
 
 # print(shak.last_name, "used in", shak.book_title, shak.vocab_length, "total different words.")
 # print(shak.freq_list)
@@ -109,7 +105,7 @@ gibr = Author("Gibran", "Prophet", mtrx["gibr"]["proph"][0], mtrx["gibr"]["proph
 # print(gibr.freq_list)
 # print(gibr.twenty_most)
 # print(gibr.vocab)
-print(gibr.not_in_list)
+# print(gibr.not_in_list)
 
-# print(tria.vocab)
+print(tria.vocab)
 # print(tria.not_in_list)
