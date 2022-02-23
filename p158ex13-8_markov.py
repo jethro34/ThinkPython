@@ -3,6 +3,8 @@ import random
 
 
 def read_n_strip(file):
+    """ Reads a text file and populates a list. """
+
     fin = open(file)
     for line in fin:
         if line.strip() == "Versos sencillos (J. Martí) José Martí":
@@ -21,12 +23,15 @@ def create_markov_dict(liste, pre_worter):
 
 
 def generate_markov_text(lista, dicc, pre_palabras, ciclos):
+    """ Generates a given number of cycles of a given pre-word length of Markov text
+        by reading from a given list and a dictionary. """
 
     texto = ''
     num_random = random.randint(0, len(lista) - pre_palabras)
     llave = tuple(lista[num_random: num_random + pre_palabras])
 
     while llave not in dicc:
+        print('key not in dict!')
         num_random = random.randint(0, len(lista) - pre_palabras)
         llave = tuple(lista[num_random: num_random + pre_palabras])
 
@@ -36,7 +41,9 @@ def generate_markov_text(lista, dicc, pre_palabras, ciclos):
     for _ in range(ciclos):
         valor = random.choice(tuple(dicc[llave]))
         texto += valor + " "
-        llave = llave[1], valor
+        llave = list(llave)
+        llave.append(valor)
+        llave = tuple(llave)[-pre_palabras:]
         if llave not in dicc:
             break
 
@@ -47,10 +54,13 @@ def generate_markov_text(lista, dicc, pre_palabras, ciclos):
 worter_liste = []
 markov_dikt = {}
 
-read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/versos_sencillos.txt")
-print(worter_liste)
-create_markov_dict(worter_liste, 2)
-# for item in markov_dikt:
-#     print(item, markov_dikt[item])
 
-generate_markov_text(worter_liste, markov_dikt, 2, 100)
+read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/absolvera.txt")
+read_n_strip("/Users/hejtor/OneDrive/CS/ThinkPython stuff/revolution.txt")
+
+# print(worter_liste)
+create_markov_dict(worter_liste, 2)
+for item in markov_dikt:
+    print(item, markov_dikt[item])
+
+generate_markov_text(worter_liste, markov_dikt, 2, 300)
